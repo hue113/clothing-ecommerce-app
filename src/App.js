@@ -5,7 +5,7 @@ import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth } from './firebase/firebase.utils'    
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'    
 
 class App extends React.Component {
   constructor() {
@@ -21,9 +21,22 @@ class App extends React.Component {
   
   // 1
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-      this.setState({ currentUser: user })
-      console.log(user)
+    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+      if(userAuth) {
+        const userRef = await createUserProfileDocument(userAuth)
+        
+        userRef.onSnapshot (snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          } )    // must log here to get result, use arrow function: () => console.log(this.state)
+        })
+        // console.log(this.state)  // CANNOT console.log here bz setState is async --> result: null
+      } else {
+        this.setState({ currentUser: userAuth })
+      }
     })
   }
 
@@ -33,7 +46,7 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.currentUser)
+    console.log(this.state.currentUser)
     
     return (
       <div className="App">
