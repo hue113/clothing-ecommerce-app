@@ -5,12 +5,10 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 
     // check if item is found in array (means add more than 1 quantity)
     if(existingCartItem) {
-        
         return cartItems.map(item => 
             item.id === cartItemToAdd.id
                 ? {...item, quantity: item.quantity +1 }
                 : {item}        // means no modification to item
-
         )
     }
 
