@@ -6,7 +6,9 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
         return cartItems.map(item => 
             item.id === cartItemToAdd.id
                 ? {...item, quantity: item.quantity +1 }
-                : {item}        // means no modification to item
+                : item          // means no modification to item
+                                // Don't put {item} with curly braces here.
+                                // Because the result with the curly braces is a nested object rather than the object itself
         )
     }
 
