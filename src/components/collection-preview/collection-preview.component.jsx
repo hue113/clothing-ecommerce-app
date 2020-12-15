@@ -10,8 +10,10 @@ const CollectionPreview = ({ title, items }) => {
             <div className="preview">
                 {items
                     .filter((item,index) => index < 4)
-                    .map(({id, ...props}) => (                        
-                        <CollectionItem key={id} {...props} />
+                    .map((item) => (                                    // bz you need to pass item to cart
+                        <CollectionItem key={item.id} item={item} />
+                    // .map(({id, ...props}) => (                        
+                    //     <CollectionItem key={id} {...props} />
                 ))}
             </div>
         </div>
