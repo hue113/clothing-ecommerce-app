@@ -1,7 +1,5 @@
 export const addItemToCart = (cartItems, cartItemToAdd) => {
-    const existingCartItem = cartItems.find(
-        item => item.id === cartItemToAdd.id
-    )
+    const existingCartItem = cartItems.find(item => item.id === cartItemToAdd.id)
 
     // check if item is found in array (means add more than 1 quantity)
     if(existingCartItem) {
