@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import { createStructuredSelector } from 'reselect'
 
 import MenuItem from '../menu-item/menu-item.component';
