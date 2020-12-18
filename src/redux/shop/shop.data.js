@@ -1,5 +1,9 @@
-const SHOP_DATA = [
-    {
+
+// NOTE: SHOULD STORE 'LIST OF ELEMENTS AS OBJECT', INSTEAD OF ARRAY
+// This is called Data Normalization
+
+const SHOP_DATA = {
+    hats: {
         id: 111,
         title: 'Hats',
         routeName: 'hats',
@@ -60,7 +64,7 @@ const SHOP_DATA = [
         }
       ]
     },
-    {
+    sneakers: {
         id: 112,
         title: 'Sneakers',
         routeName: 'sneakers',
@@ -115,7 +119,7 @@ const SHOP_DATA = [
         }
       ]
     },
-    {
+    jackets: {
       id: 113,
       title: 'Jackets',
       routeName: 'jackets',
@@ -152,7 +156,7 @@ const SHOP_DATA = [
         }
       ]
     },
-    {
+    women: {
         id: 114,
         title: 'Women',
         routeName: 'women',
@@ -201,7 +205,7 @@ const SHOP_DATA = [
         }
       ]
     },
-    {
+    men: {
         id: 115,
         title: 'Men',
         routeName: 'men',
@@ -244,7 +248,7 @@ const SHOP_DATA = [
         }
       ]
     }
-];
+};
   
   
 export default SHOP_DATA;  
