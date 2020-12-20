@@ -26,13 +26,28 @@ class ShopPage extends React.Component {
         const collectionRef = firestore.collection('collections')
         // console.log('collectionRef', collectionRef)
         
-        this.unsubscribeFromSnapShot = collectionRef.onSnapshot(async snapshot => {
-            // console.log('snapshot', snapshot)
-            const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
-            // console.log(collectionsMap)
-            updateCollections(collectionsMap)
-            this.setState({ loading: false })
-        })
+        // 3. USING FETCH: (DON'T USE THIS)
+        // (objects too nested to get value in this case --> better use convertCollectionsSnapshotToMap to navigate)
+        // fetch('https://firestore.googleapis.com/v1/projects/clothing-db-28ed3/databases/(default)/documents/collections')
+        //     .then(res => res.json())
+        //     .then(collections => console.log(collections))
+
+        // 2. USING PROMISE STYLE (GOOD):
+        collectionRef.get()
+            .then(snapshot => {
+                const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
+                updateCollections(collectionsMap)
+                this.setState({ loading: false })
+            })
+
+        // 1. USING ASYNC STYLE (ALSO GOOD):
+        // this.unsubscribeFromSnapShot = collectionRef.onSnapshot(async snapshot => {
+        //     // console.log('snapshot', snapshot)
+        //     const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
+        //     // console.log(collectionsMap)
+        //     updateCollections(collectionsMap)
+        //     this.setState({ loading: false })
+        // })
     }
 
     // componentWillUnmount() { 
