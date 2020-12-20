@@ -25,8 +25,10 @@ export const signInWithGoogle = () => auth.signInWithPopup(provider)
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return;       // if user doesn't exist -> exist function, do nothing
 
-    const userRef = firestore.doc(`users/${userAuth.uid}`)
+    const userRef = firestore.doc(`users/${userAuth}`)
+    // console.log('doc ref: ',userRef)                    // Document Reference
     const snapShot = await userRef.get()
+    // console.log('doc snapshot: ', snapShot)                   // Document Snapshot
     
     if(!snapShot.exists) {      // 
         const { displayName, email } = userAuth;
@@ -46,8 +48,44 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     
     // console.log(firestore.doc('users/23sa'))
     // console.log(snapShot)
-
+    
     return userRef
+}
+
+// async request to add collection and items to firebase
+// batch/group all calls into 1 big request -> don't have to enter data manually into firebase    
+// only run this method ONCE when you need to add
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = firestore.collection(collectionKey)
+    // console.log('collectionKey: ', collectionKey)
+
+    const batch = firestore.batch()         // batch/group all calls into 1 big request -> don't have to enter data manually into firebase    
+    objectsToAdd.forEach( obj => {
+        const newDocRef = collectionRef.doc()
+        // console.log('newDocRef: ', newDocRef)
+        // batch.set(newDocRef, obj)
+    })
+    
+    return await batch.commit()
+}
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+    const transformedCollection = collections.docs.map(doc => {
+        const { title, items } = doc.data()
+        
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        }
+    })
+
+    console.log('transformed collection', transformedCollection)
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title.toLowerCase()] = collection
+        return accumulator
+    }, {})
 }
 
 
