@@ -9,10 +9,10 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils'    
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils'    
 import { setCurrentUser } from './redux/user/user.actions'
 import { selectCurrentUser } from './redux/user/user.selectors'
-
+import { selectCollectionForPreview } from './redux/shop/shop.selectors'
 
 class App extends React.Component {
   
@@ -21,7 +21,7 @@ class App extends React.Component {
   
   // 1
   componentDidMount() {
-    const { setCurrentUser } = this.props
+    const { setCurrentUser, collectionsArray } = this.props
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
       if(userAuth) {
@@ -36,10 +36,12 @@ class App extends React.Component {
           } )    // must log here to get result, use arrow function: () => console.log(this.state)
         })
         // console.log(this.state)  // CANNOT console.log here bz setState is async --> result: null
-      } else {
+      } 
         // this.setState({ currentUser: userAuth })
-        setCurrentUser(userAuth)
-      }
+      setCurrentUser(userAuth)
+      // addCollectionAndDocuments('collections', collectionsArray)   // passing full array of SHOP_DATA --> we don't need this because there is some redundant info
+      addCollectionAndDocuments('collections', collectionsArray.map( ({title, items}) => ({title, items}) ))  // destructure & passing only title & items of SHOP_DATA (which we need)
+      
     })
   }
 
@@ -72,7 +74,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector ({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionForPreview
 })
 // const mapStateToProps = ({ user }) => ({
 //   currentUser: user.currentUser
