@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
 import { persistStore } from 'redux-persist'
+import thunk from 'redux-thunk'
 import rootReducer from './root-reducer'
 
-const middleWares = []        // if you need to add more middleware, put in here inside the array
+
+const middleWares = [thunk]        // if you need to add more middleware, put in here inside the array
 
 if (process.env.NODE_ENV === 'development') {
     middleWares.push(logger)

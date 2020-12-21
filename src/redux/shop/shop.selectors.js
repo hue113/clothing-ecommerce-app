@@ -19,6 +19,17 @@ export const selectCollection = collectionUrlParam => createSelector(
     collections => collections ? collections[collectionUrlParam] : null
 )
 
+export const selectIsCollectionFetching = createSelector(
+    [selectShop],
+    shop => shop.isFetching
+)
+
+export const selectIsCollectionsLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections      // if collections get loaded -> true; otherwise, false
+            // alternative: Boolean(shop.collections) 
+)
+
 // BEFORE convert SHOP_DATA array into object:
 // export const selectCollection = collectionUrlParam => createSelector(
 //     [selectShopCollections], 

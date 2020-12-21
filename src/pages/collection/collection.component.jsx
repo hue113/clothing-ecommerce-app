@@ -7,7 +7,7 @@ import { selectCollection, selectShopCollections } from '../../redux/shop/shop.s
 
 const CollectionPage = ({ collection }) => {
     const { title, items } = collection
-    // console.log(items)
+    console.log(items)
 
     return (
         <div className='collection-page'>
