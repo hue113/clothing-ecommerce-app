@@ -9,7 +9,7 @@ import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/fireb
 import './shop.styles.scss'
 import { updateCollections } from '../../redux/shop/shop.actions'
 import WithSpinner from '../../components/with-spinner/with-spinner.component.jsx';
-import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions'
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions'
 import { selectIsCollectionFetching, selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors'
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container.jsx';
 import CollectionPageContainer from '../collection/collection.container.jsx';
@@ -27,8 +27,8 @@ class ShopPage extends React.Component {
     // unsubscribeFromSnapShot = null;
 
     componentDidMount() {
-        const { fetchCollectionsStartAsync } = this.props
-        fetchCollectionsStartAsync();
+        const { fetchCollectionsStart } = this.props
+        fetchCollectionsStart();
     }
 
     // componentDidMount() {
@@ -99,7 +99,7 @@ class ShopPage extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
     // updateCollections: collectionsMap => dispatch(updateCollections(collectionsMap))
-    fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+    fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 })
 
 export default connect(
