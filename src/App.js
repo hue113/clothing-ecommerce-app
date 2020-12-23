@@ -23,26 +23,26 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser, collectionsArray } = this.props
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
-      if(userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+    //   if(userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth)
         
-        userRef.onSnapshot (snapShot => {
-          setCurrentUser({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data()
-            }
-          } )    // must log here to get result, use arrow function: () => console.log(this.state)
-        })
-        // console.log(this.state)  // CANNOT console.log here bz setState is async --> result: null
-      } 
-        // this.setState({ currentUser: userAuth })
-      setCurrentUser(userAuth)
-      // addCollectionAndDocuments('collections', collectionsArray)   // passing full array of SHOP_DATA --> we don't need this because there is some redundant info
-      addCollectionAndDocuments('collections', collectionsArray.map( ({title, items}) => ({title, items}) ))  // destructure & passing only title & items of SHOP_DATA (which we need)
+    //     userRef.onSnapshot (snapShot => {
+    //       setCurrentUser({
+    //         currentUser: {
+    //           id: snapShot.id,
+    //           ...snapShot.data()
+    //         }
+    //       } )    // must log here to get result, use arrow function: () => console.log(this.state)
+    //     })
+    //     // console.log(this.state)  // CANNOT console.log here bz setState is async --> result: null
+    //   } 
+    //     // this.setState({ currentUser: userAuth })
+    //   setCurrentUser(userAuth)
+    //   // addCollectionAndDocuments('collections', collectionsArray)   // passing full array of SHOP_DATA --> we don't need this because there is some redundant info
+    //   addCollectionAndDocuments('collections', collectionsArray.map( ({title, items}) => ({title, items}) ))  // destructure & passing only title & items of SHOP_DATA (which we need)
       
-    })
+    // })
   }
 
   // 3
