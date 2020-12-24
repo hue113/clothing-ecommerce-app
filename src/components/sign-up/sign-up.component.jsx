@@ -1,8 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import CustomButton from '../custom-button/custom-button.component';
 import FormInput from '../form-input/form-input.component';
 import './sign-up.styles.scss'
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'    
+import { signUpStart} from '../../redux/user/user.actions'
 
 class SignUp extends React.Component {
     constructor() {
@@ -22,28 +24,32 @@ class SignUp extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault()
+        const { signUpStart } = this.props          
         const { displayName, email, password, confirmPassword } = this.state
         if (password !== confirmPassword) {
             alert("Passwords don't match")
             return;         // stop whole function
         }
+        signUpStart({ displayName, email, password })
 
-        try {
-            const { user } = await auth.createUserWithEmailAndPassword (
-                email, 
-                password
-            )   
-            await createUserProfileDocument(user, { displayName })      // displayName is a object, so you must use { }
+
+        // BEFORE USING user.sagas:
+        // try {
+        //     const { user } = await auth.createUserWithEmailAndPassword (
+        //         email, 
+        //         password
+        //     )   
+        //     await createUserProfileDocument(user, { displayName })      // displayName is a object, so you must use { }
             
-            this.setState({                 // clear form
-                displayName:'',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            })
-        } catch (error) {
-            console.error(error)
-        }
+        //     this.setState({                 // clear form
+        //         displayName:'',
+        //         email: '',
+        //         password: '',
+        //         confirmPassword: ''
+        //     })
+        // } catch (error) {
+        //     console.error(error)
+        // }
     }
 
     render() {
@@ -94,4 +100,11 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+    signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
+})
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(SignUp);
