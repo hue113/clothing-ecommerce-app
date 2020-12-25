@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
@@ -15,15 +15,19 @@ import { selectCurrentUser } from './redux/user/user.selectors'
 import { selectCollectionForPreview } from './redux/shop/shop.selectors'
 import { checkUserSession } from './redux/user/user.actions'
 
-class App extends React.Component {
+const App = ({ checkUserSession, currentUser }) => {
   
   // 2
-  unsubscribeFromAuth = null;
+  // unsubscribeFromAuth = null;
   
-  // 1
-  componentDidMount() {
-    const { checkUserSession } = this.props
+  useEffect ( () => {
     checkUserSession()
+  }, [checkUserSession]) 
+
+  // 1
+  // componentDidMount() {
+    // const { checkUserSession } = this.props
+    // checkUserSession()
 
     // const { setCurrentUser, collectionsArray } = this.props
 
@@ -47,14 +51,14 @@ class App extends React.Component {
     //   addCollectionAndDocuments('collections', collectionsArray.map( ({title, items}) => ({title, items}) ))  // destructure & passing only title & items of SHOP_DATA (which we need)
       
     // })
-  }
+  // }
 
   // 3
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
-  }   
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth()
+  // }   
 
-  render() {
+  // render() {
     // console.log(this.state.currentUser)
     
     return (
@@ -67,14 +71,14 @@ class App extends React.Component {
           {/* <Route path='/signin' component={SignInAndSignUpPage}/> */}
           <Route 
               exact path='/signin' 
-              render={ () => this.props.currentUser 
+              render={ () => currentUser 
                         ? <Redirect to='/' />
                         : <SignInAndSignUpPage /> }/>
           
         </Switch>
       </div>
     );
-  }
+  // }
 }
 
 const mapStateToProps = createStructuredSelector ({
