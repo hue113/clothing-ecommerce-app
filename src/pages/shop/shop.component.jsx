@@ -1,4 +1,4 @@
-import React from 'react'
+import React,  { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
@@ -19,17 +19,20 @@ import CollectionPageContainer from '../collection/collection.container.jsx';
 // const CollectionsOverviewWithSpinner = WithSpinner(CollectionOverview)
 // const CollectionPageWithSpinner = WithSpinner(CollectionPage)
 
-class ShopPage extends React.Component {
+const ShopPage = ({ fetchCollectionsStart, match }) => {
     // state = {       
     //     loading: true               // write like this --> don't have to write constructor
     // }
 
     // unsubscribeFromSnapShot = null;
 
-    componentDidMount() {
-        const { fetchCollectionsStart } = this.props
-        fetchCollectionsStart();
-    }
+    useEffect( () => {
+        fetchCollectionsStart()
+    }, [fetchCollectionsStart])
+    // componentDidMount() {
+    //     // const { fetchCollectionsStart } = this.props
+    //     fetchCollectionsStart();
+    // }
 
     // componentDidMount() {
         // const  { updateCollections } = this.props
@@ -64,8 +67,8 @@ class ShopPage extends React.Component {
     //     this.unsubscribeFromSnapShot()
     // }
 
-    render() {
-        const { match } = this.props
+    // render() {
+        // const { match } = this.props
         // const { match, isCollectionFetching, isCollectionsLoaded } = this.props
         // const { loading } = this.state
 
@@ -88,7 +91,7 @@ class ShopPage extends React.Component {
                 {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage}/> */}
             </div>
         )
-    }
+    // }
 
 }
 
