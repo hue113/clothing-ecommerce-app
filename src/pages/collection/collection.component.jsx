@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
+import { firestore } from '../../firebase/firebase.utils'
 import './collection.styles.scss'
 import CollectionItem from '../../components/collection-item/collection-item.component'
 import { selectCollection, selectShopCollections } from '../../redux/shop/shop.selectors'
 
 const CollectionPage = ({ collection }) => {
-    const { title, items } = collection
-    console.log(items)
 
+    // useEffect(() => {
+    //     console.log('I am subscribing')
+    //     const unsubscribeFromCollections = firestore
+    //         .collection('collections')
+    //         .onSnapshot( snapshot => console.log(snapshot))
+
+    //     return () => {              // clean up when unmount
+    //         console.log('I am UNsubscribing')
+    //         unsubscribeFromCollections()
+    //     }
+    // }, [])
+
+    
+    const { title, items } = collection
     return (
         <div className='collection-page'>
             <h2 className='title'>{title}</h2>
