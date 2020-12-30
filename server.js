@@ -1,8 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const path = require('path');       // native module inside node_modules
-// const dotenv = require('dotenv');
+const enforce = require('express-sslify')       // HTTPS
 
 if(process.env.NODE_ENV !== 'production') require('dotenv').config({ path: './config.env'})
 // require('stripe') return a function require key --> we can pass it right next
@@ -19,6 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 if(process.env.NODE_ENV === 'production') {
+    app.use(enforce.HTTPS({ trustProtoHeader: true }))      // PWA HTTPS
     app.use(express.static(path.join(__dirname, 'client/build')))
 
     app.get('*', function(req, res) {       // * means every url that user hits 
@@ -29,6 +29,10 @@ if(process.env.NODE_ENV === 'production') {
 app.listen(port, error => {
     if (error) throw error;
     console.log('Server running on port' + port)
+})
+
+app.get('./server-worker.js', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'))
 })
 
 app.post('/payment', (req, res) => {
