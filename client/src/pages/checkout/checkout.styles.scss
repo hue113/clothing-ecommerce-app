@@ -20,6 +20,15 @@
             &:last-child {
             width: 8%;              // 92+8=100
             }
+
+
+            @media screen and (max-width: 800px) {
+                width: 22%;
+
+                &:last-child {
+                    width: 12%;
+                }
+            }
         }
     }
   
@@ -39,6 +48,10 @@
     button {
         margin-left: auto;
         margin-top: 50px;
+    }
+
+    @media screen and (max-width: 800px) {
+        width: 90%;
     }
 
 }

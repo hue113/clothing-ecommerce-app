@@ -99,7 +99,7 @@ const SignUp = ({ signUpStart }) => {
                         label='Confirm Password'
                         required
                     />
-                    <CustomButton type="submit"> Sign Up </CustomButton>
+                    <CustomButton className='button' type="submit"> Sign Up </CustomButton>
                 </form>
 
             </div>
