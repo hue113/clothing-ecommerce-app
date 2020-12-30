@@ -36,12 +36,11 @@ app.get('./server-worker.js', (req, res) => {
 })
 
 app.post('/payment', (req, res) => {
-    console.log('Payment route hit')
+    // console.log('Payment route hit')
     const body = {
         source: req.body.token.id,
         amount: req.body.amount,
         currency: 'usd',
-        description: 'Learning React'
     }
     stripe.charges.create(body, (stripeErr, stripeRes) => {
         if(stripeErr) {
