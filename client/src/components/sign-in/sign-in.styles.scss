@@ -11,5 +11,16 @@
         display: flex;
         justify-content: space-between;
     }
+
+    @media screen and (max-width: 800px) {
+        width: 100%;
+        align-items: center;
+
+        button {
+            margin: 0 10px;
+            min-width: 120px;
+            padding: 0 10px;
+        }
+    }
     
 }

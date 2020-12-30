@@ -23,7 +23,6 @@
         }
     }
   
-
     &.large {
         height: 380px;
     }
@@ -65,6 +64,14 @@
         .subtitle {
         font-weight: lighter;
         font-size: 16px;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        height: 200px;
+
+        &.large {
+            height: 200px;
         }
     }
 }
