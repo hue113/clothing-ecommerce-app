@@ -7,6 +7,7 @@ import Header from './components/header/header.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Spinner from './components/spinner/spinner.component'
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 
 // import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils'    
 // import { setCurrentUser } from './redux/user/user.actions'
@@ -74,6 +75,7 @@ const App = ({ checkUserSession, currentUser }) => {
             <GlobalStyle />
             <Header />    
             <Switch>
+              <ErrorBoundary>
                 <Suspense fallback={ <Spinner /> }>
                     <Route exact path='/' component={HomePage}/>
                     <Route path='/shop' component={ShopPage}/>
@@ -85,6 +87,7 @@ const App = ({ checkUserSession, currentUser }) => {
                             ? <Redirect to='/' />
                             : <SignInAndSignUpPage /> }/>
                 </Suspense>
+              </ErrorBoundary>
             </Switch>
         </div>
     );
