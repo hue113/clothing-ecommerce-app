@@ -7,15 +7,7 @@ import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
 import { signUpStart} from '../../redux/user/user.actions'
 
 const SignUp = ({ signUpStart }) => {
-    // constructor() {
-    //     super()
-    //     this.state = {
-    //         displayName: '',
-    //         email: '',
-    //         password: '',
-    //         confirmPassword: ''
-    //     }
-    // }
+ 
     const [userCredentials, setCredentials ] = useState({ 
         displayName: '',
         email: '',
