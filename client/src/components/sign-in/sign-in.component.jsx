@@ -64,8 +64,13 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
                         <CustomButton type="submit"> Sign In </CustomButton>
                         <CustomButton type="button" onClick={googleSignInStart} isGoogleSignIn> Sign In With Google </CustomButton>
                     </div>
-                    
                 </form>
+
+                <div className="test-account">
+                        *Please use the following account information to sign in*
+                        <div>Email: test@gmail.com</div>
+                        <div>Password: 123456</div>
+                </div>
             </div>
         );
     // }

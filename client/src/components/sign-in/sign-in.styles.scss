@@ -12,6 +12,14 @@
         justify-content: space-between;
     }
 
+    .test-account {
+        margin-top: 20px;
+        
+        div {
+            color: red;
+        }
+    }
+
     @media screen and (max-width: 800px) {
         width: 100%;
         align-items: center;

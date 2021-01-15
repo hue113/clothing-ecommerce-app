@@ -25,7 +25,7 @@ export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return;       // if user doesn't exist -> exist function, do nothing
 
-    const userRef = firestore.doc(`users/${userAuth}`)
+    const userRef = firestore.doc(`users/${userAuth.uid}`)
     // console.log('doc ref: ',userRef)                    // Document Reference
     const snapShot = await userRef.get()
     // console.log('doc snapshot: ', snapShot)                   // Document Snapshot

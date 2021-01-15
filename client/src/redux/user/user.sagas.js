@@ -4,6 +4,7 @@ import { auth, googleProvider, createUserProfileDocument, getCurrentUser } from 
 import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpSuccess, signUpFailure } from './user.actions'
 
 export function* getSnapshotFromUserAuth(userAuth) {    // reusable generator function
+    console.log(userAuth)
     try {
         const userRef = yield call(createUserProfileDocument, userAuth)
         const userSnapshot = yield userRef.get()
